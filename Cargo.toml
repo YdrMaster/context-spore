@@ -1,0 +1,12 @@
+[package]
+name = "context-spore"
+description = "Crate for managing resources and move them between hardware contexts"
+version = "0.0.0"
+edition = "2021"
+authors = ["YdrMaster <ydrml@hotmail.com>"]
+repository = "https://github.com/YdrMaster/context-spore.git"
+documentation = "https://docs.rs/context-spore"
+license = "MIT"
+readme = "README.md"
+keywords = ["context", "spore"]
+categories = ["no-std::no-alloc", "hardware-support"]

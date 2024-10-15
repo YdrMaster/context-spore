@@ -126,7 +126,7 @@ macro_rules! impl_spore {
 
         impl<'ctx> $resource<'ctx> {
             #[inline]
-            pub fn ctx(&self) -> &$ctx {
+            pub fn ctx(&self) -> &'ctx $ctx {
                 unsafe { <$ctx>::from_raw(&self.0.ctx) }
             }
         }

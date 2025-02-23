@@ -26,6 +26,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Use beta toolchain
+        run: |
+          rustup toolchain install beta --component rustfmt clippy
+          rustup default beta
+
       - name: Check format
         run: cargo fmt --check
 

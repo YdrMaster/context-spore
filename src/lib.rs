@@ -70,14 +70,14 @@ pub trait ContextSpore<Ctx>: 'static + Send + Sync {
     /// # Safety
     ///
     /// 这个转换的安全性来源于运行时检查孢子是否属于已加载的目标上下文。
-    fn sprout_ref<'ctx>(&'ctx self, ctx: &'ctx Ctx) -> &Self::Resource<'_>;
+    fn sprout_ref<'ctx>(&'ctx self, ctx: &'ctx Ctx) -> &'ctx Self::Resource<'ctx>;
 
     /// 从孢子中借出资源的可变引用。
     ///
     /// # Safety
     ///
     /// 这个转换的安全性来源于运行时检查孢子是否属于已加载的目标上下文。
-    fn sprout_mut<'ctx>(&'ctx mut self, ctx: &'ctx Ctx) -> &mut Self::Resource<'_>;
+    fn sprout_mut<'ctx>(&'ctx mut self, ctx: &'ctx Ctx) -> &'ctx mut Self::Resource<'ctx>;
 }
 
 /// 孢子惯用法。
@@ -136,7 +136,7 @@ macro_rules! impl_spore {
 
         $crate::spore_convention!($spore);
 
-        impl $crate::ContextSpore<CurrentCtx> for $spore {
+        impl $crate::ContextSpore<$ctx> for $spore {
             type Resource<'ctx> = $resource<'ctx>;
 
             #[inline]
@@ -164,7 +164,7 @@ macro_rules! impl_spore {
             }
         }
 
-        impl<'ctx> $crate::ContextResource<'ctx, CurrentCtx> for $resource<'ctx> {
+        impl<'ctx> $crate::ContextResource<'ctx, $ctx> for $resource<'ctx> {
             type Spore = $spore;
 
             #[inline]
